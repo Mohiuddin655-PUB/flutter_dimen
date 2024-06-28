@@ -1,7 +1,3 @@
-# flutter_dimen
-
-## EXAMPLE
-```dart
 import 'package:app_dimen/app_dimen.dart';
 import 'package:flutter/material.dart';
 
@@ -72,4 +68,3 @@ class Home extends StatelessWidget {
     );
   }
 }
-```
