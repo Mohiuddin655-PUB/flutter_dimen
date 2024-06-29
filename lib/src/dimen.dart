@@ -1,18 +1,14 @@
+import 'package:app_dimen/app_dimen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_config/config.dart';
-
-import 'dimens.dart';
-import 'font.dart';
-import 'radius.dart';
-import 'size.dart';
-import 'spacing.dart';
-import 'weight.dart';
 
 const _kBorder = "border";
 const _kCorner = "corners";
 const _kDivider = "divider";
 const _kFontSize = "font_size";
 const _kFontWeight = "font_weight";
+const _kIcon = "icon";
+const _kImage = "image";
 const _kMargin = "margin";
 const _kPadding = "padding";
 const _kSize = "size";
@@ -108,13 +104,15 @@ class Dimen {
     DimenConfig<SizeDimens>? divider,
     DimenConfig<FontDimens>? fontSize,
     DimenConfig<WeightDimens>? fontWeight,
+    DimenConfig<IconDimens>? icon,
+    DimenConfig<SizeDimens>? image,
     DimenConfig<SpacingDimens>? margin,
     DimenConfig<SpacingDimens>? padding,
     DimenConfig<SizeDimens>? size,
     DimenConfig<SpacingDimens>? spacing,
     final Iterable<DimenConfigData> dimens = const [],
   }) {
-    _i = Dimen(
+    _i = Dimen._(
       deviceType: deviceType,
       deviceConfig: deviceConfig,
       border: border,
@@ -122,6 +120,8 @@ class Dimen {
       divider: divider,
       fontSize: fontSize,
       fontWeight: fontWeight,
+      icon: icon,
+      image: image,
       margin: margin,
       padding: padding,
       size: size,
@@ -132,7 +132,7 @@ class Dimen {
 
   void createInstance() => _i = this;
 
-  Dimen({
+  Dimen._({
     DeviceConfig? deviceConfig,
     DeviceType? deviceType,
     DimenConfig<SizeDimens>? border,
@@ -140,6 +140,8 @@ class Dimen {
     DimenConfig<SizeDimens>? divider,
     DimenConfig<FontDimens>? fontSize,
     DimenConfig<WeightDimens>? fontWeight,
+    DimenConfig<IconDimens>? icon,
+    DimenConfig<SizeDimens>? image,
     DimenConfig<SpacingDimens>? margin,
     DimenConfig<SpacingDimens>? padding,
     DimenConfig<SizeDimens>? size,
@@ -152,6 +154,8 @@ class Dimen {
     if (divider != null) _dimens[_kDivider] = divider;
     if (fontSize != null) _dimens[_kFontSize] = fontSize;
     if (fontWeight != null) _dimens[_kFontWeight] = fontWeight;
+    if (icon != null) _dimens[_kIcon] = icon;
+    if (image != null) _dimens[_kImage] = image;
     if (margin != null) _dimens[_kMargin] = margin;
     if (padding != null) _dimens[_kPadding] = padding;
     if (size != null) _dimens[_kSize] = size;
@@ -160,6 +164,34 @@ class Dimen {
       _dimens.addEntries(dimens.map((e) => MapEntry(e.name, e.config)));
     }
   }
+
+  Dimen({
+    DimenConfig<SizeDimens>? border,
+    DimenConfig<RadiusDimens>? corner,
+    DimenConfig<SizeDimens>? divider,
+    DimenConfig<FontDimens>? fontSize,
+    DimenConfig<WeightDimens>? fontWeight,
+    DimenConfig<IconDimens>? icon,
+    DimenConfig<SizeDimens>? image,
+    DimenConfig<SpacingDimens>? margin,
+    DimenConfig<SpacingDimens>? padding,
+    DimenConfig<SizeDimens>? size,
+    DimenConfig<SpacingDimens>? spacing,
+    final Iterable<DimenConfigData> dimens = const [],
+  }) : this._(
+          border: border,
+          corner: corner,
+          divider: divider,
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          icon: icon,
+          image: image,
+          margin: margin,
+          padding: padding,
+          size: size,
+          spacing: spacing,
+          dimens: dimens,
+        );
 
   Device _device(Size size) {
     final x = _config ?? DeviceConfig.i;
@@ -197,6 +229,14 @@ extension DimenHelper on BuildContext {
     final x = Dimen.of<FontDimens>(name)?.detect(device.type);
     if (x != null) return x.scale(scaleFactor);
     return const FontDimens().scale(scaleFactor);
+  }
+
+  IconDimens iconDimenOf(String name) {
+    final device = _device;
+    final scaleFactor = device.fontScaleFactor;
+    final x = Dimen.of<IconDimens>(name)?.detect(device.type);
+    if (x != null) return x.scale(scaleFactor);
+    return const IconDimens().scale(scaleFactor);
   }
 
   RadiusDimens radiusDimenOf(String name) {
@@ -240,6 +280,10 @@ extension DimenHelper on BuildContext {
   FontDimens get fontSizes => fontDimenOf(_kFontSize);
 
   WeightDimens get fontWeights => weightDimenOf(_kFontWeight);
+
+  IconDimens get icons => iconDimenOf(_kIcon);
+
+  SizeDimens get images => sizeDimenOf(_kImage);
 
   SpacingDimens get margins => spacingDimenOf(_kMargin);
 
