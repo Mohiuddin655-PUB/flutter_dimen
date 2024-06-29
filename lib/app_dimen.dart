@@ -9,3 +9,4 @@ export 'src/radius.dart';
 export 'src/size.dart';
 export 'src/spacing.dart';
 export 'src/weight.dart';
+export 'src/widget.dart';

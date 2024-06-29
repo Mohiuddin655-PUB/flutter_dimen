@@ -231,6 +231,14 @@ extension DimenHelper on BuildContext {
 
   Device get _device => Dimen.i._device(_size);
 
+  T? dimenOf<T extends Dimens>(String name) {
+    final device = _device;
+    final scaleFactor = device.fontScaleFactor;
+    final x = Dimen.of<T>(name)?.detect(device.type).scale(scaleFactor);
+    if (x is T) return x;
+    return null;
+  }
+
   FontDimens fontDimenOf(String name) {
     final device = _device;
     final scaleFactor = device.fontScaleFactor;

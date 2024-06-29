@@ -7,7 +7,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.1"
+    version: "1.0.5"
   async:
     dependency: transitive
     description:
@@ -73,10 +73,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_device_config
-      sha256: "286adaf4b9b9d91cdc4cd879e7757170518a9bca0667b64d90189b1321a6270d"
+      sha256: "322461319f655e32c1ef1dedb8a85d0cbd90df6ebdc5386cf0df4504f9974861"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:
