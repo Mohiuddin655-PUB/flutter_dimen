@@ -213,6 +213,10 @@ class Dimen {
 
   DimenConfig<WeightDimens>? get fontWeight => of(_kFontWeight);
 
+  DimenConfig<IconDimens>? get icon => of(_kIcon);
+
+  DimenConfig<SizeDimens>? get image => of(_kImage);
+
   DimenConfig<SpacingDimens>? get margin => of(_kMargin);
 
   DimenConfig<SpacingDimens>? get padding => of(_kPadding);
@@ -287,7 +291,12 @@ extension DimenHelper on BuildContext {
 
   IconDimens get icons => iconDimenOf(_kIcon);
 
-  SizeDimens get images => sizeDimenOf(_kImage);
+  SizeDimens get images {
+    return sizeDimenOf(_kImage).defaults(
+      maxWidth: _size.width,
+      maxHeight: _size.height,
+    );
+  }
 
   SpacingDimens get margins => spacingDimenOf(_kMargin);
 
