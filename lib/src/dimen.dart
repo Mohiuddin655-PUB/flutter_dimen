@@ -166,6 +166,8 @@ class Dimen {
   }
 
   Dimen({
+    DeviceConfig? deviceConfig,
+    DeviceType? deviceType,
     DimenConfig<SizeDimens>? border,
     DimenConfig<RadiusDimens>? corner,
     DimenConfig<SizeDimens>? divider,
@@ -179,6 +181,8 @@ class Dimen {
     DimenConfig<SpacingDimens>? spacing,
     final Iterable<DimenConfigData> dimens = const [],
   }) : this._(
+          deviceConfig: deviceConfig,
+          deviceType: deviceType,
           border: border,
           corner: corner,
           divider: divider,
