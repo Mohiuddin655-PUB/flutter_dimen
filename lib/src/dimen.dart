@@ -1,79 +1,16 @@
-import 'package:app_dimen/app_dimen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_config/config.dart';
 
-const _kBorder = "border";
-const _kCorner = "corners";
-const _kDivider = "divider";
-const _kFontSize = "font_size";
-const _kFontWeight = "font_weight";
-const _kIcon = "icon";
-const _kImage = "image";
-const _kMargin = "margin";
-const _kPadding = "padding";
-const _kSize = "size";
-const _kSpacing = "spacing";
+import 'config.dart';
+import 'config_data.dart';
+import 'constraint.dart';
+import 'defaults.dart';
+import 'dimens.dart';
+import 'keys.dart';
+import 'size.dart';
+import 'weight.dart';
 
-typedef DimenConfigs<T extends Dimens> = Map<String, DimenConfig<T>?>;
-
-class DimenConfig<T extends Dimens> {
-  final T? _watch;
-  final T mobile;
-  final T? _tablet;
-  final T? _laptop;
-  final T? _desktop;
-  final T? _tv;
-
-  T get watch => _watch ?? mobile;
-
-  T get tablet => _tablet ?? mobile;
-
-  T get laptop => _laptop ?? tablet;
-
-  T get desktop => _desktop ?? laptop;
-
-  T get tv => _tv ?? desktop;
-
-  const DimenConfig({
-    required this.mobile,
-    T? tablet,
-    T? laptop,
-    T? desktop,
-    T? watch,
-    T? tv,
-  })  : _tablet = tablet,
-        _laptop = laptop,
-        _desktop = desktop,
-        _watch = watch,
-        _tv = tv;
-
-  T detect(DeviceType type) {
-    switch (type) {
-      case DeviceType.watch:
-        return watch;
-      case DeviceType.mobile:
-        return mobile;
-      case DeviceType.tablet:
-        return tablet;
-      case DeviceType.laptop:
-        return laptop;
-      case DeviceType.desktop:
-        return desktop;
-      case DeviceType.tv:
-        return tv;
-    }
-  }
-}
-
-class DimenConfigData<T extends Dimens> {
-  final String name;
-  final DimenConfig<T> config;
-
-  const DimenConfigData({
-    required this.name,
-    required this.config,
-  });
-}
+typedef DimenConfigs = Map<String, DimenConfig>;
 
 class Dimen {
   final DeviceType? _type;
@@ -90,232 +27,155 @@ class Dimen {
     }
   }
 
-  static DimenConfig<T>? of<T extends Dimens>(String name) {
-    final x = _i?._dimens[name];
-    if (x is DimenConfig<T>) return x;
-    return null;
-  }
-
-  static void init({
-    DeviceConfig? deviceConfig,
-    DeviceType? deviceType,
-    DimenConfig<SizeDimens>? border,
-    DimenConfig<RadiusDimens>? corner,
-    DimenConfig<SizeDimens>? divider,
-    DimenConfig<FontDimens>? fontSize,
-    DimenConfig<WeightDimens>? fontWeight,
-    DimenConfig<IconDimens>? icon,
-    DimenConfig<SizeDimens>? image,
-    DimenConfig<SpacingDimens>? margin,
-    DimenConfig<SpacingDimens>? padding,
-    DimenConfig<SizeDimens>? size,
-    DimenConfig<SpacingDimens>? spacing,
-    final Iterable<DimenConfigData> dimens = const [],
-  }) {
-    _i = Dimen._(
-      deviceType: deviceType,
-      deviceConfig: deviceConfig,
-      border: border,
-      corner: corner,
-      divider: divider,
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      icon: icon,
-      image: image,
-      margin: margin,
-      padding: padding,
-      size: size,
-      spacing: spacing,
-      dimens: dimens,
-    );
-  }
-
-  void createInstance() => _i = this;
-
-  Dimen._({
-    DeviceConfig? deviceConfig,
-    DeviceType? deviceType,
-    DimenConfig<SizeDimens>? border,
-    DimenConfig<RadiusDimens>? corner,
-    DimenConfig<SizeDimens>? divider,
-    DimenConfig<FontDimens>? fontSize,
-    DimenConfig<WeightDimens>? fontWeight,
-    DimenConfig<IconDimens>? icon,
-    DimenConfig<SizeDimens>? image,
-    DimenConfig<SpacingDimens>? margin,
-    DimenConfig<SpacingDimens>? padding,
-    DimenConfig<SizeDimens>? size,
-    DimenConfig<SpacingDimens>? spacing,
-    final Iterable<DimenConfigData> dimens = const [],
-  })  : _config = deviceConfig,
-        _type = deviceType {
-    if (border != null) _dimens[_kBorder] = border;
-    if (corner != null) _dimens[_kCorner] = corner;
-    if (divider != null) _dimens[_kDivider] = divider;
-    if (fontSize != null) _dimens[_kFontSize] = fontSize;
-    if (fontWeight != null) _dimens[_kFontWeight] = fontWeight;
-    if (icon != null) _dimens[_kIcon] = icon;
-    if (image != null) _dimens[_kImage] = image;
-    if (margin != null) _dimens[_kMargin] = margin;
-    if (padding != null) _dimens[_kPadding] = padding;
-    if (size != null) _dimens[_kSize] = size;
-    if (spacing != null) _dimens[_kSpacing] = spacing;
-    if (dimens.isNotEmpty) {
-      _dimens.addEntries(dimens.map((e) => MapEntry(e.name, e.config)));
-    }
-  }
-
-  Dimen({
-    DeviceConfig? deviceConfig,
-    DeviceType? deviceType,
-    DimenConfig<SizeDimens>? border,
-    DimenConfig<RadiusDimens>? corner,
-    DimenConfig<SizeDimens>? divider,
-    DimenConfig<FontDimens>? fontSize,
-    DimenConfig<WeightDimens>? fontWeight,
-    DimenConfig<IconDimens>? icon,
-    DimenConfig<SizeDimens>? image,
-    DimenConfig<SpacingDimens>? margin,
-    DimenConfig<SpacingDimens>? padding,
-    DimenConfig<SizeDimens>? size,
-    DimenConfig<SpacingDimens>? spacing,
-    final Iterable<DimenConfigData> dimens = const [],
-  }) : this._(
-          deviceConfig: deviceConfig,
-          deviceType: deviceType,
-          border: border,
-          corner: corner,
-          divider: divider,
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          icon: icon,
-          image: image,
-          margin: margin,
-          padding: padding,
-          size: size,
-          spacing: spacing,
-          dimens: dimens,
-        );
-
-  Device _device(Size size) {
+  Device device(Size size) {
     final x = _config ?? DeviceConfig.i;
     if (_type != null) return x.deviceFromType(_type!);
     return x.device(size.width, size.height);
   }
 
-  DimenConfig<SizeDimens>? get border => of(_kBorder);
+  static DimenConfig? _of(String name) => _i?._dimens[name];
 
-  DimenConfig<RadiusDimens>? get corner => of(_kCorner);
-
-  DimenConfig<SizeDimens>? get divider => of(_kDivider);
-
-  DimenConfig<FontDimens>? get fontSize => of(_kFontSize);
-
-  DimenConfig<WeightDimens>? get fontWeight => of(_kFontWeight);
-
-  DimenConfig<IconDimens>? get icon => of(_kIcon);
-
-  DimenConfig<SizeDimens>? get image => of(_kImage);
-
-  DimenConfig<SpacingDimens>? get margin => of(_kMargin);
-
-  DimenConfig<SpacingDimens>? get padding => of(_kPadding);
-
-  DimenConfig<SizeDimens>? get size => of(_kSize);
-
-  DimenConfig<SpacingDimens>? get spacing => of(_kSpacing);
-}
-
-extension DimenHelper on BuildContext {
-  Size get _size => MediaQuery.sizeOf(this);
-
-  Device get _device => Dimen.i._device(_size);
-
-  T? dimenOf<T extends Dimens>(String name) {
-    final device = _device;
+  static T of<T extends Dimens>(String name, Size size, [T? initial]) {
+    final device = i.device(size);
     final scaleFactor = device.fontScaleFactor;
-    final x = Dimen.of<T>(name)?.detect(device.type).scale(scaleFactor);
-    if (x is T) return x;
-    return null;
+    final x = _of(name)?.detect(device.type);
+    if (x is ConstraintDimens) {
+      return x.scale(scaleFactor) as T;
+    } else if (x is SizeDimens) {
+      return x.scale(scaleFactor) as T;
+    } else if (x is WeightDimens) {
+      return x.scale(scaleFactor) as T;
+    } else if (initial != null) {
+      return initial;
+    }
+    throw UnimplementedError("$T not initialized yet for $name");
   }
 
-  FontDimens fontDimenOf(String name) {
-    final device = _device;
-    final scaleFactor = device.fontScaleFactor;
-    final x = Dimen.of<FontDimens>(name)?.detect(device.type);
-    if (x != null) return x.scale(scaleFactor);
-    return const FontDimens().scale(scaleFactor);
-  }
-
-  IconDimens iconDimenOf(String name) {
-    final device = _device;
-    final scaleFactor = device.fontScaleFactor;
-    final x = Dimen.of<IconDimens>(name)?.detect(device.type);
-    if (x != null) return x.scale(scaleFactor);
-    return const IconDimens().scale(scaleFactor);
-  }
-
-  RadiusDimens radiusDimenOf(String name) {
-    final device = _device;
-    final scaleFactor = device.radiusScaleFactor;
-    final x = Dimen.of<RadiusDimens>(name)?.detect(device.type);
-    if (x != null) return x.scale(scaleFactor);
-    return const RadiusDimens().scale(scaleFactor);
-  }
-
-  SizeDimens sizeDimenOf(String name) {
-    final device = _device;
+  static ConstraintDimens constraintOf(
+    String name,
+    Size size, {
+    ConstraintDimen? defaults,
+    bool defaultScalable = false,
+  }) {
+    final device = i.device(size);
     final scaleFactor = device.sizeScaleFactor;
-    final x = Dimen.of<SizeDimens>(name)?.detect(device.type);
-    if (x != null) return x.scale(scaleFactor);
-    return const SizeDimens().scale(scaleFactor);
+    final x = _of(name)?.detect(device.type);
+    final y = x is ConstraintDimens ? x : const ConstraintDimens.none();
+    final z = defaultScalable && defaults != null ? y : y.scale(scaleFactor);
+    final m = defaults != null ? z.defaults(defaults) : z;
+    return defaultScalable ? m.scale(scaleFactor) : m;
   }
 
-  SpacingDimens spacingDimenOf(String name) {
-    final device = _device;
-    final scaleFactor = device.spacingScaleFactor;
-    final x = Dimen.of<SpacingDimens>(name)?.detect(device.type);
-    if (x != null) return x.scale(scaleFactor);
-    return const SpacingDimens().scale(scaleFactor);
+  static SizeDimens sizeOf(String name, Size size) {
+    final device = i.device(size);
+    final scaleFactor = device.sizeScaleFactor;
+    final x = _of(name)?.detect(device.type);
+    final y = x is SizeDimens ? x : const SizeDimens.zero();
+    return y.scale(scaleFactor);
   }
 
-  WeightDimens weightDimenOf(String name) {
-    final device = _device;
+  static WeightDimens weightOf(String name, Size size) {
+    final device = i.device(size);
     final scaleFactor = device.weightScaleFactor;
-    final x = Dimen.of<WeightDimens>(name)?.detect(device.type);
-    if (x != null) return x.scale(scaleFactor);
-    return const WeightDimens().scale(scaleFactor);
+    final x = _of(name)?.detect(device.type);
+    final y = x is WeightDimens ? x : const WeightDimens();
+    return y.scale(scaleFactor);
   }
 
-  SizeDimens get borders => sizeDimenOf(_kBorder).defaults(normal: 1);
-
-  RadiusDimens get corners => radiusDimenOf(_kCorner);
-
-  SizeDimens get dividers => sizeDimenOf(_kCorner);
-
-  FontDimens get fontSizes => fontDimenOf(_kFontSize);
-
-  WeightDimens get fontWeights => weightDimenOf(_kFontWeight);
-
-  IconDimens get icons => iconDimenOf(_kIcon);
-
-  SizeDimens get images {
-    return sizeDimenOf(_kImage).defaults(
-      maxWidth: _size.width,
-      maxHeight: _size.height,
+  static void init({
+    // CONFIGS
+    DeviceConfig? deviceConfig,
+    DeviceType? deviceType,
+    Iterable<DimenConfigData> dimens = const [],
+    // CONSTRAINT DIMENS
+    DimenConfig<ConstraintDimens> button = DefaultConfigs.button,
+    DimenConfig<ConstraintDimens> image = DefaultConfigs.image,
+    DimenConfig<ConstraintDimens> screen = DefaultConfigs.screen,
+    // SIZE DIMENS
+    DimenConfig<SizeDimens> corner = DefaultConfigs.corner,
+    DimenConfig<SizeDimens> divider = DefaultConfigs.divider,
+    DimenConfig<SizeDimens> fontSize = DefaultConfigs.fontSize,
+    DimenConfig<SizeDimens> icon = DefaultConfigs.icon,
+    DimenConfig<SizeDimens> margin = DefaultConfigs.margin,
+    DimenConfig<SizeDimens> padding = DefaultConfigs.padding,
+    DimenConfig<SizeDimens> spacing = DefaultConfigs.spacing,
+    DimenConfig<SizeDimens> stroke = DefaultConfigs.stroke,
+    // WEIGHT DIMENS
+    DimenConfig<WeightDimens> fontWeight = DefaultConfigs.fontWeight,
+  }) {
+    _i = Dimen(
+      // CONFIGS
+      deviceType: deviceType,
+      deviceConfig: deviceConfig,
+      dimens: dimens,
+      // CONSTRAINT DIMENS
+      button: button,
+      image: image,
+      screen: screen,
+      // SIZE DIMENS
+      corner: corner,
+      divider: divider,
+      fontSize: fontSize,
+      icon: icon,
+      margin: margin,
+      padding: padding,
+      spacing: spacing,
+      stroke: stroke,
+      // WEIGHT DIMENS
+      fontWeight: fontWeight,
     );
   }
 
-  SpacingDimens get margins => spacingDimenOf(_kMargin);
-
-  SpacingDimens get paddings => spacingDimenOf(_kPadding);
-
-  SizeDimens get sizes {
-    return sizeDimenOf(_kSize).defaults(
-      maxWidth: _size.width,
-      maxHeight: _size.height,
-    );
+  static void attach({
+    Iterable<DimenConfigData> dimens = const [],
+  }) {
+    if (dimens.isNotEmpty) {
+      i._dimens.addEntries(dimens.map((e) => MapEntry(e.name, e.config)));
+    }
   }
 
-  SpacingDimens get spacings => spacingDimenOf(_kSpacing);
+  void createInstance() => _i = this;
+
+  Dimen({
+    // CONFIGS
+    DeviceConfig? deviceConfig,
+    DeviceType? deviceType,
+    Iterable<DimenConfigData> dimens = const [],
+    // CONSTRAINT DIMENS
+    DimenConfig<ConstraintDimens> button = DefaultConfigs.button,
+    DimenConfig<ConstraintDimens> image = DefaultConfigs.image,
+    DimenConfig<ConstraintDimens> screen = DefaultConfigs.screen,
+    // SIZE DIMENS
+    DimenConfig<SizeDimens> corner = DefaultConfigs.corner,
+    DimenConfig<SizeDimens> divider = DefaultConfigs.divider,
+    DimenConfig<SizeDimens> fontSize = DefaultConfigs.fontSize,
+    DimenConfig<SizeDimens> icon = DefaultConfigs.icon,
+    DimenConfig<SizeDimens> margin = DefaultConfigs.margin,
+    DimenConfig<SizeDimens> padding = DefaultConfigs.padding,
+    DimenConfig<SizeDimens> spacing = DefaultConfigs.spacing,
+    DimenConfig<SizeDimens> stroke = DefaultConfigs.stroke,
+    // WEIGHT DIMENS
+    DimenConfig<WeightDimens> fontWeight = DefaultConfigs.fontWeight,
+  })  : _config = deviceConfig,
+        _type = deviceType {
+    // CONFIGS
+    if (dimens.isNotEmpty) {
+      _dimens.addEntries(dimens.map((e) => MapEntry(e.name, e.config)));
+    }
+    // CONSTRAINT DIMENS
+    _dimens[DimenKeys.button] = button;
+    _dimens[DimenKeys.image] = image;
+    _dimens[DimenKeys.screen] = screen;
+    // SIZE DIMENS
+    _dimens[DimenKeys.corner] = corner;
+    _dimens[DimenKeys.divider] = divider;
+    _dimens[DimenKeys.fontSize] = fontSize;
+    _dimens[DimenKeys.icon] = icon;
+    _dimens[DimenKeys.margin] = margin;
+    _dimens[DimenKeys.padding] = padding;
+    _dimens[DimenKeys.spacing] = spacing;
+    _dimens[DimenKeys.stroke] = stroke;
+    // WEIGHT DIMENS
+    _dimens[DimenKeys.fontWeight] = fontWeight;
+  }
 }

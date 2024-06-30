@@ -1,23 +1,73 @@
-import 'dart:math';
+import 'package:flutter/material.dart';
 
-extension DimensHelper on double? {
-  double get _ => this ?? 0;
+import 'constraint.dart';
+import 'dimen.dart';
+import 'dimens.dart';
+import 'keys.dart';
+import 'size.dart';
+import 'weight.dart';
 
-  double xd(double divider, [bool negative = false]) {
-    return negative ? xdn(divider) : max(xdn(divider), 0);
+extension DimenHelper on BuildContext {
+  // CONFIGS
+  Size get _size => MediaQuery.sizeOf(this);
+
+  T? dimenOf<T extends Dimens>(String name, [Size? size]) {
+    return Dimen.of(name, size ?? _size);
   }
 
-  double xdn(double divider) => _ / divider;
-
-  double xi(double increment, [bool negative = false]) {
-    return negative ? xin(increment) : max(xin(increment), 0);
+  ConstraintDimens constraintDimenOf(String name, [Size? size]) {
+    return Dimen.constraintOf(name, size ?? _size);
   }
 
-  double xin(double increment) => _ + increment;
-
-  double xp(double percentage, [bool negative = false]) {
-    return xi(_ * percentage / 100, negative);
+  SizeDimens sizeDimenOf(String name, [Size? size]) {
+    return Dimen.sizeOf(name, size ?? _size);
   }
 
-  double xpn(double percentage) => xin(_ * percentage / 100);
+  WeightDimens weightDimenOf(String name, [Size? size]) {
+    return Dimen.weightOf(name, size ?? _size);
+  }
+
+  // CONSTRAINT DIMENS
+
+  ConstraintDimens get button {
+    return constraintDimenOf(DimenKeys.button).defaults(ConstraintDimen(
+      maxWidth: _size.width,
+    ));
+  }
+
+  ConstraintDimens get images {
+    return constraintDimenOf(DimenKeys.image).defaults(ConstraintDimen(
+      maxWidth: _size.width,
+      maxHeight: _size.height,
+    ));
+  }
+
+  ConstraintDimens get screen {
+    return constraintDimenOf(DimenKeys.screen).defaults(ConstraintDimen(
+      maxWidth: _size.width,
+      maxHeight: _size.height,
+    ));
+  }
+
+  // SIZE DIMENS
+
+  SizeDimens get corners => sizeDimenOf(DimenKeys.corner);
+
+  SizeDimens get dividers => sizeDimenOf(DimenKeys.divider);
+
+  SizeDimens get fontSizes => sizeDimenOf(DimenKeys.fontSize);
+
+  SizeDimens get icons => sizeDimenOf(DimenKeys.icon);
+
+  SizeDimens get margins => sizeDimenOf(DimenKeys.margin);
+
+  SizeDimens get paddings => sizeDimenOf(DimenKeys.padding);
+
+  SizeDimens get spacers => sizeDimenOf(DimenKeys.spacing);
+
+  SizeDimens get strokes => sizeDimenOf(DimenKeys.stroke);
+
+  // WEIGHT DIMENS
+
+  WeightDimens get fontWeights => weightDimenOf(DimenKeys.fontWeight);
 }
