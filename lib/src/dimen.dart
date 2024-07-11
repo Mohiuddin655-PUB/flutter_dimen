@@ -90,7 +90,7 @@ class Dimen {
     // CONSTRAINT DIMENS
     DimenConfig<ConstraintDimens> button = DefaultConfigs.button,
     DimenConfig<ConstraintDimens> image = DefaultConfigs.image,
-    DimenConfig<ConstraintDimens> screen = DefaultConfigs.screen,
+    DimenConfig<ConstraintDimens> scaffold = DefaultConfigs.scaffold,
     // SIZE DIMENS
     DimenConfig<SizeDimens> corner = DefaultConfigs.corner,
     DimenConfig<SizeDimens> divider = DefaultConfigs.divider,
@@ -98,6 +98,7 @@ class Dimen {
     DimenConfig<SizeDimens> icon = DefaultConfigs.icon,
     DimenConfig<SizeDimens> margin = DefaultConfigs.margin,
     DimenConfig<SizeDimens> padding = DefaultConfigs.padding,
+    DimenConfig<SizeDimens> size = DefaultConfigs.size,
     DimenConfig<SizeDimens> spacing = DefaultConfigs.spacing,
     DimenConfig<SizeDimens> stroke = DefaultConfigs.stroke,
     // WEIGHT DIMENS
@@ -111,7 +112,7 @@ class Dimen {
       // CONSTRAINT DIMENS
       button: button,
       image: image,
-      screen: screen,
+      scaffold: scaffold,
       // SIZE DIMENS
       corner: corner,
       divider: divider,
@@ -119,6 +120,7 @@ class Dimen {
       icon: icon,
       margin: margin,
       padding: padding,
+      size: size,
       spacing: spacing,
       stroke: stroke,
       // WEIGHT DIMENS
@@ -144,7 +146,7 @@ class Dimen {
     // CONSTRAINT DIMENS
     DimenConfig<ConstraintDimens> button = DefaultConfigs.button,
     DimenConfig<ConstraintDimens> image = DefaultConfigs.image,
-    DimenConfig<ConstraintDimens> screen = DefaultConfigs.screen,
+    DimenConfig<ConstraintDimens> scaffold = DefaultConfigs.scaffold,
     // SIZE DIMENS
     DimenConfig<SizeDimens> corner = DefaultConfigs.corner,
     DimenConfig<SizeDimens> divider = DefaultConfigs.divider,
@@ -152,6 +154,7 @@ class Dimen {
     DimenConfig<SizeDimens> icon = DefaultConfigs.icon,
     DimenConfig<SizeDimens> margin = DefaultConfigs.margin,
     DimenConfig<SizeDimens> padding = DefaultConfigs.padding,
+    DimenConfig<SizeDimens> size = DefaultConfigs.size,
     DimenConfig<SizeDimens> spacing = DefaultConfigs.spacing,
     DimenConfig<SizeDimens> stroke = DefaultConfigs.stroke,
     // WEIGHT DIMENS
@@ -163,19 +166,20 @@ class Dimen {
       _dimens.addEntries(dimens.map((e) => MapEntry(e.name, e.config)));
     }
     // CONSTRAINT DIMENS
-    _dimens[DimenKeys.button] = button;
-    _dimens[DimenKeys.image] = image;
-    _dimens[DimenKeys.screen] = screen;
+    _dimens[DefaultDimenKeys.button] = button;
+    _dimens[DefaultDimenKeys.image] = image;
+    _dimens[DefaultDimenKeys.scaffold] = scaffold;
     // SIZE DIMENS
-    _dimens[DimenKeys.corner] = corner;
-    _dimens[DimenKeys.divider] = divider;
-    _dimens[DimenKeys.fontSize] = fontSize;
-    _dimens[DimenKeys.icon] = icon;
-    _dimens[DimenKeys.margin] = margin;
-    _dimens[DimenKeys.padding] = padding;
-    _dimens[DimenKeys.spacing] = spacing;
-    _dimens[DimenKeys.stroke] = stroke;
+    _dimens[DefaultDimenKeys.corner] = corner;
+    _dimens[DefaultDimenKeys.divider] = divider;
+    _dimens[DefaultDimenKeys.fontSize] = fontSize;
+    _dimens[DefaultDimenKeys.icon] = icon;
+    _dimens[DefaultDimenKeys.margin] = margin;
+    _dimens[DefaultDimenKeys.padding] = padding;
+    _dimens[DefaultDimenKeys.size] = size;
+    _dimens[DefaultDimenKeys.spacing] = spacing;
+    _dimens[DefaultDimenKeys.stroke] = stroke;
     // WEIGHT DIMENS
-    _dimens[DimenKeys.fontWeight] = fontWeight;
+    _dimens[DefaultDimenKeys.fontWeight] = fontWeight;
   }
 }

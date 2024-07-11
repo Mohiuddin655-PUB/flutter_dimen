@@ -1,7 +1,8 @@
-class DimenKeys {
-  const DimenKeys._();
+class DefaultDimenKeys {
+  const DefaultDimenKeys._();
 
-  static const screen = "screen";
+  static const size = "size";
+  static const scaffold = "scaffold";
   static const button = "button";
   static const corner = "corners";
   static const divider = "divider";

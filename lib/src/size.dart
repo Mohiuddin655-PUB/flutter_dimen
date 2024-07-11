@@ -103,6 +103,17 @@ class SizeDimens extends Dimens {
     this.smallest = 2,
   });
 
+  const SizeDimens.size({
+    this.normal = 12,
+    this.medium = 16,
+    this.large = 24,
+    this.larger = 32,
+    this.largest = 50,
+    this.small = 8,
+    this.smaller = 4,
+    this.smallest = 2,
+  });
+
   const SizeDimens.spacing({
     this.normal = 12,
     this.medium = 16,

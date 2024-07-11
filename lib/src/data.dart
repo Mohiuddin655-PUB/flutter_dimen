@@ -47,18 +47,19 @@ class DimenData {
     final size = Size(dx, dy);
     final defaults = ConstraintDimen(maxWidth: dx, maxHeight: dy);
     return DimenData(
-      button: Dimen.constraintOf(DimenKeys.button, size),
-      image: Dimen.constraintOf(DimenKeys.image, size),
-      screen: Dimen.constraintOf(DimenKeys.screen, size, defaults: defaults),
-      corner: Dimen.sizeOf(DimenKeys.corner, size),
-      divider: Dimen.sizeOf(DimenKeys.divider, size),
-      fontSize: Dimen.sizeOf(DimenKeys.fontSize, size),
-      icon: Dimen.sizeOf(DimenKeys.icon, size),
-      margin: Dimen.sizeOf(DimenKeys.margin, size),
-      padding: Dimen.sizeOf(DimenKeys.padding, size),
-      spacing: Dimen.sizeOf(DimenKeys.spacing, size),
-      stroke: Dimen.sizeOf(DimenKeys.stroke, size),
-      fontWeight: Dimen.weightOf(DimenKeys.fontWeight, size),
+      button: Dimen.constraintOf(DefaultDimenKeys.button, size),
+      image: Dimen.constraintOf(DefaultDimenKeys.image, size),
+      screen: Dimen.constraintOf(DefaultDimenKeys.scaffold, size,
+          defaults: defaults),
+      corner: Dimen.sizeOf(DefaultDimenKeys.corner, size),
+      divider: Dimen.sizeOf(DefaultDimenKeys.divider, size),
+      fontSize: Dimen.sizeOf(DefaultDimenKeys.fontSize, size),
+      icon: Dimen.sizeOf(DefaultDimenKeys.icon, size),
+      margin: Dimen.sizeOf(DefaultDimenKeys.margin, size),
+      padding: Dimen.sizeOf(DefaultDimenKeys.padding, size),
+      spacing: Dimen.sizeOf(DefaultDimenKeys.spacing, size),
+      stroke: Dimen.sizeOf(DefaultDimenKeys.stroke, size),
+      fontWeight: Dimen.weightOf(DefaultDimenKeys.fontWeight, size),
     );
   }
 }

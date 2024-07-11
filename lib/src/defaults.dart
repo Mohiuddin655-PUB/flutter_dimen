@@ -18,7 +18,7 @@ class DefaultConfigs {
   static const image = DimenConfig(
     mobile: ConstraintDimens(),
   );
-  static const screen = DimenConfig(
+  static const scaffold = DimenConfig(
     mobile: ConstraintDimens(),
   );
 
@@ -41,6 +41,9 @@ class DefaultConfigs {
   );
   static const padding = DimenConfig(
     mobile: SizeDimens.padding(),
+  );
+  static const size = DimenConfig(
+    mobile: SizeDimens.size(),
   );
   static const spacing = DimenConfig(
     mobile: SizeDimens.spacing(),
