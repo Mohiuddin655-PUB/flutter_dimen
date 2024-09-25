@@ -1,118 +1,242 @@
-import 'package:app_dimen/app_dimen.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_device_config/config.dart' hide DeviceHelper;
+
+import 'constraint.dart';
+import 'data.dart';
+import 'dimen.dart';
+import 'initializer.dart';
+import 'keys.dart';
+import 'size.dart';
+import 'weight.dart';
 
 extension DimenHelper on BuildContext {
   // CONFIGS
-  Size get _size => MediaQuery.sizeOf(this);
+  Size get screenSize => MediaQuery.sizeOf(this);
 
-  double get screenWidth => _size.width;
+  double get screenWidth => screenSize.width;
 
-  double get screenHeight => _size.width;
+  double get screenHeight => screenSize.height;
 
-  double get screenRatio => _size.aspectRatio;
+  double get screenRatio => screenSize.aspectRatio;
 
-  T? dimenOf<T extends Dimens>(String name, [Size? size]) {
-    return Dimen.of(name, size ?? _size);
-  }
+  double get screenMax => max(screenWidth, screenHeight);
 
-  ConstraintDimens constraintDimenOf(String name, [Size? size]) {
-    return Dimen.constraintOf(name, size ?? _size);
-  }
+  double get screenMin => min(screenWidth, screenHeight);
 
-  SizeDimens sizeDimenOf(String name, [Size? size]) {
-    return Dimen.sizeOf(name, size ?? _size);
-  }
+  // SCAFFOLD DIMENS
 
-  WeightDimens weightDimenOf(String name, [Size? size]) {
-    return Dimen.weightOf(name, size ?? _size);
-  }
-
-  // BUTTON DIMENS
-
-  ConstraintDimens get buttonDimens {
-    return constraintDimenOf(DefaultDimenKeys.button).defaults(ConstraintDimen(
-      maxWidth: _size.width,
+  ConstraintDimen get scaffoldDimens {
+    return DimenInitializer.constraintOf(
+      DefaultDimenKeys.scaffold,
+      screenSize,
+    ).defaults(ConstraintDimenData(
+      maxWidth: screenSize.width,
+      maxHeight: screenSize.height,
     ));
   }
 
-  ConstraintDimen? get normalButtonDimen => buttonDimens.normal;
-
-  ConstraintDimen? get mediumButtonDimen => buttonDimens.medium;
-
-  ConstraintDimen? get largeButtonDimen => buttonDimens.large;
-
-  ConstraintDimen? get largerButtonDimen => buttonDimens.larger;
-
-  ConstraintDimen? get largestButtonDimen => buttonDimens.largest;
-
-  ConstraintDimen? get smallButtonDimen => buttonDimens.small;
-
-  ConstraintDimen? get smallerButtonDimen => buttonDimens.smaller;
-
-  ConstraintDimen? get smallestButtonDimen => buttonDimens.smallest;
-
-  // IMAGE DIMENS
-
-  ConstraintDimens get imageDimens {
-    return constraintDimenOf(DefaultDimenKeys.image).defaults(ConstraintDimen(
-      maxWidth: _size.width,
-      maxHeight: _size.height,
-    ));
+  Size get scaffoldSize {
+    final x = scaffoldDimens.normal;
+    return Size(x?.maxWidth ?? screenWidth, x?.maxHeight ?? screenHeight);
   }
 
-  ConstraintDimen? get normalImageDimen => imageDimens.normal;
+  ConstraintDimenData? get normalScaffoldDimen => scaffoldDimens.normal;
 
-  ConstraintDimen? get mediumImageDimen => imageDimens.medium;
+  ConstraintDimenData? get mediumScaffoldDimen => scaffoldDimens.medium;
 
-  ConstraintDimen? get largeImageDimen => imageDimens.large;
+  ConstraintDimenData? get largeScaffoldDimen => scaffoldDimens.large;
 
-  ConstraintDimen? get largerImageDimen => imageDimens.larger;
+  ConstraintDimenData? get largerScaffoldDimen => scaffoldDimens.larger;
 
-  ConstraintDimen? get largestImageDimen => imageDimens.largest;
+  ConstraintDimenData? get largestScaffoldDimen => scaffoldDimens.largest;
 
-  ConstraintDimen? get smallImageDimen => imageDimens.small;
+  ConstraintDimenData? get smallScaffoldDimen => scaffoldDimens.small;
 
-  ConstraintDimen? get smallerImageDimen => imageDimens.smaller;
+  ConstraintDimenData? get smallerScaffoldDimen => scaffoldDimens.smaller;
 
-  ConstraintDimen? get smallestImageDimen => imageDimens.smallest;
+  ConstraintDimenData? get smallestScaffoldDimen => scaffoldDimens.smallest;
 
-  // SCREEN DIMENS
-
-  ConstraintDimens get scaffoldDimens {
-    return constraintDimenOf(DefaultDimenKeys.scaffold)
-        .defaults(ConstraintDimen(
-      maxWidth: _size.width,
-      maxHeight: _size.height,
-    ));
+  double get scaffoldWidth {
+    return normalScaffoldDimen?.maxWidth ?? screenSize.width;
   }
 
-  ConstraintDimen? get normalScaffoldDimen => scaffoldDimens.normal;
-
-  ConstraintDimen? get mediumScaffoldDimen => scaffoldDimens.medium;
-
-  ConstraintDimen? get largeScaffoldDimen => scaffoldDimens.large;
-
-  ConstraintDimen? get largerScaffoldDimen => scaffoldDimens.larger;
-
-  ConstraintDimen? get largestScaffoldDimen => scaffoldDimens.largest;
-
-  ConstraintDimen? get smallScaffoldDimen => scaffoldDimens.small;
-
-  ConstraintDimen? get smallerScaffoldDimen => scaffoldDimens.smaller;
-
-  ConstraintDimen? get smallestScaffoldDimen => scaffoldDimens.smallest;
-
-  double get scaffoldWidth => normalScaffoldDimen?.maxWidth ?? _size.width;
-
-  double get scaffoldHeight => normalScaffoldDimen?.maxHeight ?? _size.height;
+  double get scaffoldHeight {
+    return normalScaffoldDimen?.maxHeight ?? screenSize.height;
+  }
 
   double get scaffoldRatio => Size(scaffoldWidth, scaffoldHeight).aspectRatio;
 
+  double get scaffoldMax => max(scaffoldWidth, scaffoldHeight);
+
+  double get scaffoldMin => min(scaffoldWidth, scaffoldHeight);
+
+  DimensionSize get dimen {
+    final x = DimenInitializer.isInstance;
+    return DimensionSize(
+      x ? scaffoldWidth : screenWidth,
+      x ? scaffoldHeight : screenHeight,
+      DimenInitializer.assumedSize(screenSize),
+    );
+  }
+
+  DimenData get dimens => DimenData.from(scaffoldWidth, scaffoldHeight);
+
+  double dp(double value, [DimensionScaleMode? scaleMode]) {
+    return dimen.diagonal(scaffoldSize, value, scaleMode);
+  }
+
+  double dx(double value, [DimensionScaleMode? scaleMode]) {
+    return dimen.getWidth(scaffoldWidth, value, scaleMode);
+  }
+
+  double dy(double value, [DimensionScaleMode? scaleMode]) {
+    return dimen.getHeight(scaffoldHeight, value, scaleMode);
+  }
+
+  T dimenOf<T extends Dimen>(String name, [Size? size]) {
+    return DimenInitializer.of(name, size ?? scaffoldSize);
+  }
+
+  ConstraintDimen constraintDimenOf(String name, [Size? size]) {
+    return DimenInitializer.constraintOf(name, size ?? scaffoldSize);
+  }
+
+  SizeDimen sizeDimenOf(String name, [Size? size]) {
+    return DimenInitializer.sizeOf(name, size ?? scaffoldSize);
+  }
+
+  WeightDimen weightDimenOf(String name, [Size? size]) {
+    return DimenInitializer.weightOf(name, size ?? scaffoldSize);
+  }
+
+  // APPBAR DIMENS
+
+  ConstraintDimen get appbarDimens {
+    return constraintDimenOf(DefaultDimenKeys.appbar)
+        .defaults(ConstraintDimenData(
+      maxWidth: scaffoldWidth,
+    ));
+  }
+
+  ConstraintDimenData? get normalAppbarDimen => appbarDimens.normal;
+
+  ConstraintDimenData? get mediumAppbarDimen => appbarDimens.medium;
+
+  ConstraintDimenData? get largeAppbarDimen => appbarDimens.large;
+
+  ConstraintDimenData? get largerAppbarDimen => appbarDimens.larger;
+
+  ConstraintDimenData? get largestAppbarDimen => appbarDimens.largest;
+
+  ConstraintDimenData? get smallAppbarDimen => appbarDimens.small;
+
+  ConstraintDimenData? get smallerAppbarDimen => appbarDimens.smaller;
+
+  ConstraintDimenData? get smallestAppbarDimen => appbarDimens.smallest;
+
+  // BOTTOM DIMENS
+
+  ConstraintDimen get bottomDimens {
+    return constraintDimenOf(DefaultDimenKeys.bottom)
+        .defaults(ConstraintDimenData(
+      maxWidth: scaffoldWidth,
+    ));
+  }
+
+  ConstraintDimenData? get normalBottomDimen => bottomDimens.normal;
+
+  ConstraintDimenData? get mediumBottomDimen => bottomDimens.medium;
+
+  ConstraintDimenData? get largeBottomDimen => bottomDimens.large;
+
+  ConstraintDimenData? get largerBottomDimen => bottomDimens.larger;
+
+  ConstraintDimenData? get largestBottomDimen => bottomDimens.largest;
+
+  ConstraintDimenData? get smallBottomDimen => bottomDimens.small;
+
+  ConstraintDimenData? get smallerBottomDimen => bottomDimens.smaller;
+
+  ConstraintDimenData? get smallestBottomDimen => bottomDimens.smallest;
+
+  // BUTTON DIMENS
+
+  ConstraintDimen get buttonDimens {
+    return constraintDimenOf(DefaultDimenKeys.button)
+        .defaults(ConstraintDimenData(
+      maxWidth: scaffoldWidth,
+    ));
+  }
+
+  ConstraintDimenData? get normalButtonDimen => buttonDimens.normal;
+
+  ConstraintDimenData? get mediumButtonDimen => buttonDimens.medium;
+
+  ConstraintDimenData? get largeButtonDimen => buttonDimens.large;
+
+  ConstraintDimenData? get largerButtonDimen => buttonDimens.larger;
+
+  ConstraintDimenData? get largestButtonDimen => buttonDimens.largest;
+
+  ConstraintDimenData? get smallButtonDimen => buttonDimens.small;
+
+  ConstraintDimenData? get smallerButtonDimen => buttonDimens.smaller;
+
+  ConstraintDimenData? get smallestButtonDimen => buttonDimens.smallest;
+
+  // IMAGE DIMENS
+
+  ConstraintDimen get imageDimens {
+    return constraintDimenOf(DefaultDimenKeys.image)
+        .defaults(ConstraintDimenData(
+      maxWidth: scaffoldWidth,
+      maxHeight: scaffoldHeight,
+    ));
+  }
+
+  ConstraintDimenData? get normalImageDimen => imageDimens.normal;
+
+  ConstraintDimenData? get mediumImageDimen => imageDimens.medium;
+
+  ConstraintDimenData? get largeImageDimen => imageDimens.large;
+
+  ConstraintDimenData? get largerImageDimen => imageDimens.larger;
+
+  ConstraintDimenData? get largestImageDimen => imageDimens.largest;
+
+  ConstraintDimenData? get smallImageDimen => imageDimens.small;
+
+  ConstraintDimenData? get smallerImageDimen => imageDimens.smaller;
+
+  ConstraintDimenData? get smallestImageDimen => imageDimens.smallest;
+
+  // AVATARS
+
+  SizeDimen get avatars => sizeDimenOf(DefaultDimenKeys.avatar);
+
+  double get normalAvatar => avatars.normal;
+
+  double get mediumAvatar => avatars.medium;
+
+  double get largeAvatar => avatars.large;
+
+  double get largerAvatar => avatars.larger;
+
+  double get largestAvatar => avatars.largest;
+
+  double get smallAvatar => avatars.small;
+
+  double get smallerAvatar => avatars.smaller;
+
+  double get smallestAvatar => avatars.smallest;
+
   // CORNERS
 
-  SizeDimens get corners => sizeDimenOf(DefaultDimenKeys.corner);
+  SizeDimen get corners => sizeDimenOf(DefaultDimenKeys.corner);
 
-  SizeDimens get radius => corners;
+  SizeDimen get radius => corners;
 
   double get normalRadius => corners.normal;
 
@@ -132,7 +256,7 @@ extension DimenHelper on BuildContext {
 
   // DIVIDERS
 
-  SizeDimens get dividers => sizeDimenOf(DefaultDimenKeys.divider);
+  SizeDimen get dividers => sizeDimenOf(DefaultDimenKeys.divider);
 
   double get normalDivider => dividers.normal;
 
@@ -151,7 +275,7 @@ extension DimenHelper on BuildContext {
   double get smallestDivider => dividers.smallest;
 
   // FONT SIZES
-  SizeDimens get fontSizes => sizeDimenOf(DefaultDimenKeys.fontSize);
+  SizeDimen get fontSizes => sizeDimenOf(DefaultDimenKeys.fontSize);
 
   double get normalFontSize => fontSizes.normal;
 
@@ -170,7 +294,7 @@ extension DimenHelper on BuildContext {
   double get smallestFontSize => fontSizes.smallest;
 
   // FONT WEIGHTS
-  WeightDimens get fontWeights => weightDimenOf(DefaultDimenKeys.fontWeight);
+  WeightDimen get fontWeights => weightDimenOf(DefaultDimenKeys.fontWeight);
 
   FontWeight get thinFontWeight => fontWeights.thin.fontWeight;
 
@@ -191,9 +315,9 @@ extension DimenHelper on BuildContext {
   FontWeight get blackFontWeight => fontWeights.black.fontWeight;
 
   // ICON SIZES
-  SizeDimens get iconSizes => sizeDimenOf(DefaultDimenKeys.icon);
+  SizeDimen get iconSizes => sizeDimenOf(DefaultDimenKeys.icon);
 
-  SizeDimens get icons => iconSizes;
+  SizeDimen get icons => iconSizes;
 
   double get normalIconSize => iconSizes.normal;
 
@@ -211,8 +335,48 @@ extension DimenHelper on BuildContext {
 
   double get smallestIconSize => iconSizes.smallest;
 
+  // INDICATORS
+
+  SizeDimen get indicators => sizeDimenOf(DefaultDimenKeys.indicator);
+
+  double get normalIndicator => indicators.normal;
+
+  double get mediumIndicator => indicators.medium;
+
+  double get largeIndicator => indicators.large;
+
+  double get largerIndicator => indicators.larger;
+
+  double get largestIndicator => indicators.largest;
+
+  double get smallIndicator => indicators.small;
+
+  double get smallerIndicator => indicators.smaller;
+
+  double get smallestIndicator => indicators.smallest;
+
+  // LOGOS
+
+  SizeDimen get logos => sizeDimenOf(DefaultDimenKeys.logo);
+
+  double get normalLogo => logos.normal;
+
+  double get mediumLogo => logos.medium;
+
+  double get largeLogo => logos.large;
+
+  double get largerLogo => logos.larger;
+
+  double get largestLogo => logos.largest;
+
+  double get smallLogo => logos.small;
+
+  double get smallerLogo => logos.smaller;
+
+  double get smallestLogo => logos.smallest;
+
   // MARGINS
-  SizeDimens get margins => sizeDimenOf(DefaultDimenKeys.margin);
+  SizeDimen get margins => sizeDimenOf(DefaultDimenKeys.margin);
 
   double get normalMargin => margins.normal;
 
@@ -231,7 +395,7 @@ extension DimenHelper on BuildContext {
   double get smallestMargin => margins.smallest;
 
   // PADDINGS
-  SizeDimens get paddings => sizeDimenOf(DefaultDimenKeys.padding);
+  SizeDimen get paddings => sizeDimenOf(DefaultDimenKeys.padding);
 
   double get normalPadding => paddings.normal;
 
@@ -250,9 +414,9 @@ extension DimenHelper on BuildContext {
   double get smallestPadding => paddings.smallest;
 
   // SPACES
-  SizeDimens get spacers => sizeDimenOf(DefaultDimenKeys.spacing);
+  SizeDimen get spacers => sizeDimenOf(DefaultDimenKeys.space);
 
-  SizeDimens get spaces => spacers;
+  SizeDimen get spaces => spacers;
 
   double get normalSpace => spacers.normal;
 
@@ -271,7 +435,7 @@ extension DimenHelper on BuildContext {
   double get smallestSpace => spacers.smallest;
 
   // STROKES
-  SizeDimens get strokes => sizeDimenOf(DefaultDimenKeys.stroke);
+  SizeDimen get strokes => sizeDimenOf(DefaultDimenKeys.stroke);
 
   double get normalStroke => strokes.normal;
 
@@ -290,7 +454,7 @@ extension DimenHelper on BuildContext {
   double get smallestStroke => strokes.smallest;
 
   // SIZES
-  SizeDimens get sizes => sizeDimenOf(DefaultDimenKeys.size);
+  SizeDimen get sizes => sizeDimenOf(DefaultDimenKeys.size);
 
   double get normalSize => sizes.normal;
 

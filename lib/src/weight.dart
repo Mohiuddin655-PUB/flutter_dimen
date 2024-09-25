@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'dimens.dart';
+import 'dimen.dart';
 
-class WeightDimen {
+class WeightDimenData {
   final double value;
 
   FontWeight get fontWeight {
@@ -30,78 +30,83 @@ class WeightDimen {
     }
   }
 
-  const WeightDimen(this.value);
+  const WeightDimenData(this.value);
 
-  const WeightDimen.black([double? value]) : this(value ?? 900);
+  const WeightDimenData.black([double? value]) : this(value ?? 900);
 
-  const WeightDimen.extraBold([double? value]) : this(value ?? 800);
+  const WeightDimenData.extraBold([double? value]) : this(value ?? 800);
 
-  const WeightDimen.bold([double? value]) : this(value ?? 700);
+  const WeightDimenData.bold([double? value]) : this(value ?? 700);
 
-  const WeightDimen.semiBold([double? value]) : this(value ?? 600);
+  const WeightDimenData.semiBold([double? value]) : this(value ?? 600);
 
-  const WeightDimen.medium([double? value]) : this(value ?? 500);
+  const WeightDimenData.medium([double? value]) : this(value ?? 500);
 
-  const WeightDimen.normal([double? value]) : this(value ?? 400);
+  const WeightDimenData.normal([double? value]) : this(value ?? 400);
 
-  const WeightDimen.light([double? value]) : this(value ?? 300);
+  const WeightDimenData.light([double? value]) : this(value ?? 300);
 
-  const WeightDimen.extraLight([double? value]) : this(value ?? 200);
+  const WeightDimenData.extraLight([double? value]) : this(value ?? 200);
 
-  const WeightDimen.thin([double? value]) : this(value ?? 100);
+  const WeightDimenData.thin([double? value]) : this(value ?? 100);
 
-  WeightDimen.from(FontWeight weight) : this(weight.value * 1.0);
+  WeightDimenData.from(FontWeight weight) : this(weight.value * 1.0);
 
-  WeightDimen scale(double scaleFactor) => this * WeightDimen(scaleFactor);
+  WeightDimenData scale(double scaleFactor) =>
+      this * WeightDimenData(scaleFactor);
 
-  WeightDimen operator +(WeightDimen other) => WeightDimen(value + other.value);
+  WeightDimenData operator +(WeightDimenData other) =>
+      WeightDimenData(value + other.value);
 
-  WeightDimen operator -(WeightDimen other) => WeightDimen(value - other.value);
+  WeightDimenData operator -(WeightDimenData other) =>
+      WeightDimenData(value - other.value);
 
-  WeightDimen operator *(WeightDimen other) => WeightDimen(value * other.value);
+  WeightDimenData operator *(WeightDimenData other) =>
+      WeightDimenData(value * other.value);
 
-  WeightDimen operator /(WeightDimen other) => WeightDimen(value / other.value);
+  WeightDimenData operator /(WeightDimenData other) =>
+      WeightDimenData(value / other.value);
 
   @override
   String toString() => '$value';
 }
 
-class WeightDimens extends Dimens {
-  final WeightDimen black;
-  final WeightDimen extraBold;
-  final WeightDimen bold;
-  final WeightDimen semiBold;
-  final WeightDimen medium;
-  final WeightDimen normal;
-  final WeightDimen light;
-  final WeightDimen extraLight;
-  final WeightDimen thin;
+class WeightDimen extends Dimen {
+  final WeightDimenData black;
+  final WeightDimenData extraBold;
+  final WeightDimenData bold;
+  final WeightDimenData semiBold;
+  final WeightDimenData medium;
+  final WeightDimenData normal;
+  final WeightDimenData light;
+  final WeightDimenData extraLight;
+  final WeightDimenData thin;
 
-  const WeightDimens({
-    this.black = const WeightDimen.black(),
-    this.extraBold = const WeightDimen.extraBold(),
-    this.bold = const WeightDimen.bold(),
-    this.semiBold = const WeightDimen.semiBold(),
-    this.medium = const WeightDimen.medium(),
-    this.normal = const WeightDimen.normal(),
-    this.light = const WeightDimen.light(),
-    this.extraLight = const WeightDimen.extraLight(),
-    this.thin = const WeightDimen.thin(),
+  const WeightDimen({
+    this.black = const WeightDimenData.black(),
+    this.extraBold = const WeightDimenData.extraBold(),
+    this.bold = const WeightDimenData.bold(),
+    this.semiBold = const WeightDimenData.semiBold(),
+    this.medium = const WeightDimenData.medium(),
+    this.normal = const WeightDimenData.normal(),
+    this.light = const WeightDimenData.light(),
+    this.extraLight = const WeightDimenData.extraLight(),
+    this.thin = const WeightDimenData.thin(),
   });
 
   @override
-  WeightDimens copy({
-    WeightDimen? black,
-    WeightDimen? extraBold,
-    WeightDimen? bold,
-    WeightDimen? semiBold,
-    WeightDimen? medium,
-    WeightDimen? normal,
-    WeightDimen? light,
-    WeightDimen? extraLight,
-    WeightDimen? thin,
+  WeightDimen copy({
+    WeightDimenData? black,
+    WeightDimenData? extraBold,
+    WeightDimenData? bold,
+    WeightDimenData? semiBold,
+    WeightDimenData? medium,
+    WeightDimenData? normal,
+    WeightDimenData? light,
+    WeightDimenData? extraLight,
+    WeightDimenData? thin,
   }) {
-    return WeightDimens(
+    return WeightDimen(
       black: black ?? this.black,
       extraBold: extraBold ?? this.extraBold,
       bold: bold ?? this.bold,
@@ -115,8 +120,8 @@ class WeightDimens extends Dimens {
   }
 
   @override
-  WeightDimens scale(double scaleFactor) {
-    return WeightDimens(
+  WeightDimen scale(double scaleFactor) {
+    return WeightDimen(
       black: black.scale(scaleFactor),
       extraBold: extraBold.scale(scaleFactor),
       bold: bold.scale(scaleFactor),

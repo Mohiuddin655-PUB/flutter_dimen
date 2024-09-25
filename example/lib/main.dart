@@ -2,83 +2,7 @@ import 'package:app_dimen/app_dimen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  Dimen.init(
-    padding: DefaultConfigs.padding,
-    corner: const DimenConfig(
-      mobile: SizeDimens.corner(
-        normal: 20,
-        //  ... ADD MORE
-      ),
-      //  ... ADD MORE
-    ),
-    //  ... ADD MORE
-    dimens: [
-      DimenConfigData(
-        name: "box_constraints",
-        config: DimenConfig(
-          // MOBILE ALL BOX CONSTRAINTS AS SAME
-          mobile: ConstraintDimens.all(
-            width: 223.7,
-            height: 190.5,
-          ),
-          // DESKTOP ALL BOX CONSTRAINTS AS DEFERENCE
-          desktop: const ConstraintDimens(
-            normal: ConstraintDimen(
-              width: 43.7,
-            ),
-            medium: ConstraintDimen(
-              minHeight: 100,
-            ),
-            //  ... ADD MORE
-          ),
-        ),
-      ),
-      const DimenConfigData(
-        name: "label_font_sizes",
-        config: DimenConfig(
-          watch: SizeDimens.font(
-            normal: 12,
-            medium: 14,
-            large: 20,
-            small: 10,
-            //  ... ADD MORE
-          ),
-          mobile: SizeDimens.font(
-            normal: 14,
-            medium: 16,
-            large: 24,
-            small: 12,
-            //  ... ADD MORE
-          ),
-          desktop: SizeDimens.font(
-            normal: 16,
-            medium: 18,
-            large: 26,
-            small: 14,
-            //  ... ADD MORE
-          ),
-          //  ... ADD MORE
-        ),
-      ),
-      DimenConfigData(
-        name: "label_font_weights",
-        config: DimenConfig(
-          mobile: WeightDimens(
-            normal: WeightDimen.from(FontWeight.w400),
-            bold: WeightDimen.from(FontWeight.w700),
-            //  ... ADD MORE
-          ),
-          desktop: WeightDimens(
-            normal: WeightDimen.from(FontWeight.w500),
-            bold: WeightDimen.from(FontWeight.w800),
-            //  ... ADD MORE
-          ),
-          //  ... ADD MORE
-        ),
-      ),
-      //  ... ADD MORE
-    ],
-  );
+  DimenInitializer.init();
   runApp(const MyApp());
 }
 
@@ -93,64 +17,130 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Home(),
+      home: const AssumingSizeExample(),
     );
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class AssumingSizeExample extends StatelessWidget {
+  const AssumingSizeExample({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: DimenLayout(
-                    builder: (context, dimen) {
-                      return Container(
+      body: Center(
+        child: Container(
+          width: context.dp(200),
+          height: context.dp(200),
+          padding: EdgeInsets.all(context.dp(24)),
+          decoration: BoxDecoration(
+            color: Colors.deepOrange,
+            borderRadius: BorderRadius.circular(context.dp(24)),
+          ),
+          alignment: Alignment.center,
+          margin: EdgeInsets.all(context.dp(24)),
+          child: Text(
+            "${context.dp(24).toInt()}",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              // fontWeight: context.boldFontWeight,
+              fontSize: context.dp(24),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class WidgetReferenceExample extends StatelessWidget {
+  const WidgetReferenceExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
+          width: context.scaffoldWidth,
+          height: context.scaffoldHeight,
+          child: Column(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
                         color: Colors.green,
                         alignment: Alignment.center,
                         height: double.infinity,
-                        child: Text(dimen.screen.normal.toString()),
-                      );
-                    },
-                  ),
+                        child: Text(
+                          context.dp(32).toStringAsFixed(2),
+                          style: TextStyle(
+                            fontSize: context.dp(32),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: DimensionalBox<SizeDimen>(
+                        primary: false,
+                        name: DefaultDimenKeys.fontSize,
+                        builder: (context, dimen) {
+                          return Container(
+                            color: Colors.greenAccent,
+                            alignment: Alignment.center,
+                            height: double.infinity,
+                            child: Text(
+                              "$SizeDimen(${dimen.largest})",
+                              style: TextStyle(
+                                fontSize: dimen.largest,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: ResponsiveDimenLayout(
-                    builder: (context, dimen) {
-                      return Container(
-                        color: Colors.red,
-                        alignment: Alignment.center,
-                        height: double.infinity,
-                        child: Text(dimen.screen.normal.toString()),
-                      );
-                    },
-                  ),
+              ),
+              Expanded(
+                child: DimenLayout(
+                  primary: false,
+                  builder: (context, data) {
+                    ConstraintDimen appbar = data.appbar;
+                    ConstraintDimen bottom = data.bottom;
+                    ConstraintDimen button = data.button;
+                    SizeDimen corner = data.corner;
+                    SizeDimen divider = data.divider;
+                    SizeDimen fontSize = data.fontSize;
+                    WeightDimen fontWeight = data.fontWeight;
+                    SizeDimen icon = data.icon;
+                    ConstraintDimen image = data.image;
+                    SizeDimen indicator = data.indicator;
+                    SizeDimen logo = data.logo;
+                    SizeDimen margin = data.margin;
+                    SizeDimen padding = data.padding;
+                    ConstraintDimen scaffold = data.scaffold;
+                    SizeDimen size = data.size;
+                    SizeDimen spacing = data.space;
+                    SizeDimen stroke = data.stroke;
+                    return Container(
+                      color: Colors.green,
+                      alignment: Alignment.center,
+                      height: double.infinity,
+                      child: Text(
+                        "$DimenLayout (${data.dp(32)})",
+                        style: TextStyle(
+                          fontSize: data.dp(32),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Expanded(
-            child: ResponsiveDimen<SizeDimens>(
-              name: "label_font_sizes",
-              initial: const SizeDimens.font(),
-              builder: (context, dimen) {
-                return Container(
-                  color: Colors.red,
-                  alignment: Alignment.center,
-                  height: double.infinity,
-                  child: Text(dimen.normal.toString()),
-                );
-              },
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

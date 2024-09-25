@@ -1,7 +1,7 @@
 import 'config.dart';
-import 'dimens.dart';
+import 'dimen.dart';
 
-class DimenConfigData<T extends Dimens> {
+class DimenConfigData<T extends Dimen> {
   final String name;
   final DimenConfig<T> config;
 

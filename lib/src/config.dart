@@ -1,8 +1,8 @@
 import 'package:flutter_device_config/config.dart';
 
-import 'dimens.dart';
+import 'dimen.dart';
 
-class DimenConfig<T extends Dimens> {
+class DimenConfig<T extends Dimen> {
   final T? _watch;
   final T mobile;
   final T? _tablet;

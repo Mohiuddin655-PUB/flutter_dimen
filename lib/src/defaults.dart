@@ -1,59 +1,86 @@
-import 'config.dart';
-import 'constraint.dart';
-import 'size.dart';
-import 'weight.dart';
+import 'package:app_dimen/app_dimen.dart';
 
 class DefaultConfigs {
   const DefaultConfigs._();
 
   // CONSTRAINT DIMENS
-  static const button = DimenConfig(
-    mobile: ConstraintDimens(
-      normal: ConstraintDimen(
+  static const appbar = DimenConfig(
+    mobile: ConstraintDimen(
+      normal: ConstraintDimenData(
+        width: double.infinity,
+        height: 54,
         maxHeight: 60,
         minHeight: 40,
       ),
     ),
   );
+  static const bottom = DimenConfig(
+    mobile: ConstraintDimen(
+      normal: ConstraintDimenData(
+        width: double.infinity,
+        height: 54,
+        maxHeight: 60,
+        minHeight: 40,
+      ),
+    ),
+  );
+  static const button = DimenConfig(
+    mobile: ConstraintDimen(
+      normal: ConstraintDimenData(
+        maxHeight: 60,
+        minHeight: 40,
+        height: 50,
+      ),
+    ),
+  );
   static const image = DimenConfig(
-    mobile: ConstraintDimens(),
+    mobile: ConstraintDimen(),
   );
   static const scaffold = DimenConfig(
-    mobile: ConstraintDimens(),
+    mobile: ConstraintDimen(),
   );
 
   // SIZE DIMENS
 
+  static const avatar = DimenConfig(
+    mobile: SizeDimen.avatar(),
+  );
   static const corner = DimenConfig(
-    mobile: SizeDimens.corner(),
+    mobile: SizeDimen.corner(),
   );
   static const divider = DimenConfig(
-    mobile: SizeDimens.divider(),
+    mobile: SizeDimen.divider(),
   );
   static const fontSize = DimenConfig(
-    mobile: SizeDimens.font(),
+    mobile: SizeDimen.font(),
   );
   static const icon = DimenConfig(
-    mobile: SizeDimens.icon(),
+    mobile: SizeDimen.icon(),
+  );
+  static const indicator = DimenConfig(
+    mobile: SizeDimen.indicator(),
+  );
+  static const logo = DimenConfig(
+    mobile: SizeDimen.logo(),
   );
   static const margin = DimenConfig(
-    mobile: SizeDimens.margin(),
+    mobile: SizeDimen.margin(),
   );
   static const padding = DimenConfig(
-    mobile: SizeDimens.padding(),
+    mobile: SizeDimen.padding(),
   );
   static const size = DimenConfig(
-    mobile: SizeDimens.size(),
+    mobile: SizeDimen.size(),
   );
   static const spacing = DimenConfig(
-    mobile: SizeDimens.spacing(),
+    mobile: SizeDimen.space(),
   );
   static const stroke = DimenConfig(
-    mobile: SizeDimens.stroke(),
+    mobile: SizeDimen.stroke(),
   );
 
   // WEIGHT DIMENS
   static const fontWeight = DimenConfig(
-    mobile: WeightDimens(),
+    mobile: WeightDimen(),
   );
 }

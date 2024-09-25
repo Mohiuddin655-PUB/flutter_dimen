@@ -1,28 +1,26 @@
-import 'package:app_dimen/app_dimen.dart';
+import 'dimen.dart';
 
-import 'dimens.dart';
+typedef SizeDimenData = double;
 
-typedef SizeDimen = double;
+class SizeDimen extends Dimen {
+  final SizeDimenData normal;
+  final SizeDimenData medium;
+  final SizeDimenData large;
+  final SizeDimenData larger;
+  final SizeDimenData largest;
+  final SizeDimenData small;
+  final SizeDimenData smaller;
+  final SizeDimenData smallest;
 
-class SizeDimens extends Dimens {
-  final SizeDimen normal;
-  final SizeDimen medium;
-  final SizeDimen large;
-  final SizeDimen larger;
-  final SizeDimen largest;
-  final SizeDimen small;
-  final SizeDimen smaller;
-  final SizeDimen smallest;
-
-  const SizeDimens({
+  const SizeDimen({
     required this.normal,
-    SizeDimen? medium,
-    SizeDimen? large,
-    SizeDimen? larger,
-    SizeDimen? largest,
-    SizeDimen? small,
-    SizeDimen? smaller,
-    SizeDimen? smallest,
+    SizeDimenData? medium,
+    SizeDimenData? large,
+    SizeDimenData? larger,
+    SizeDimenData? largest,
+    SizeDimenData? small,
+    SizeDimenData? smaller,
+    SizeDimenData? smallest,
   })  : medium = medium ?? normal,
         large = large ?? medium ?? normal,
         larger = larger ?? large ?? medium ?? normal,
@@ -31,13 +29,24 @@ class SizeDimens extends Dimens {
         smaller = smaller ?? small ?? normal,
         smallest = smallest ?? smaller ?? small ?? normal;
 
-  const SizeDimens.zero() : this(normal: 0);
+  const SizeDimen.zero() : this(normal: 0);
 
-  const SizeDimens.all(double value) : this(normal: value);
+  const SizeDimen.all(double value) : this(normal: value);
 
-  const SizeDimens.infinity() : this(normal: double.infinity);
+  const SizeDimen.infinity() : this(normal: double.infinity);
 
-  const SizeDimens.corner({
+  const SizeDimen.avatar({
+    this.normal = 40,
+    this.medium = 60,
+    this.large = 90,
+    this.larger = 120,
+    this.largest = 160,
+    this.small = 32,
+    this.smaller = 28,
+    this.smallest = 24,
+  });
+
+  const SizeDimen.corner({
     this.normal = 12,
     this.medium = 16,
     this.large = 24,
@@ -48,7 +57,7 @@ class SizeDimens extends Dimens {
     this.smallest = 2,
   });
 
-  const SizeDimens.divider({
+  const SizeDimen.divider({
     this.normal = 1,
     this.medium = 2,
     this.large = 4,
@@ -59,7 +68,7 @@ class SizeDimens extends Dimens {
     this.smallest = 0.25,
   });
 
-  const SizeDimens.font({
+  const SizeDimen.font({
     this.normal = 14,
     this.medium = 16,
     this.large = 18,
@@ -70,7 +79,7 @@ class SizeDimens extends Dimens {
     this.smallest = 8,
   });
 
-  const SizeDimens.icon({
+  const SizeDimen.icon({
     this.normal = 24,
     this.medium = 28,
     this.large = 32,
@@ -81,7 +90,29 @@ class SizeDimens extends Dimens {
     this.smallest = 12,
   });
 
-  const SizeDimens.margin({
+  const SizeDimen.indicator({
+    this.normal = 4,
+    this.medium = 5,
+    this.large = 6,
+    this.larger = 8,
+    this.largest = 12,
+    this.small = 3,
+    this.smaller = 2,
+    this.smallest = 1,
+  });
+
+  const SizeDimen.logo({
+    this.normal = 40,
+    this.medium = 50,
+    this.large = 75,
+    this.larger = 90,
+    this.largest = 120,
+    this.small = 32,
+    this.smaller = 28,
+    this.smallest = 24,
+  });
+
+  const SizeDimen.margin({
     this.normal = 12,
     this.medium = 16,
     this.large = 24,
@@ -92,7 +123,7 @@ class SizeDimens extends Dimens {
     this.smallest = 2,
   });
 
-  const SizeDimens.padding({
+  const SizeDimen.padding({
     this.normal = 12,
     this.medium = 16,
     this.large = 24,
@@ -103,7 +134,7 @@ class SizeDimens extends Dimens {
     this.smallest = 2,
   });
 
-  const SizeDimens.size({
+  const SizeDimen.size({
     this.normal = 12,
     this.medium = 16,
     this.large = 24,
@@ -114,7 +145,7 @@ class SizeDimens extends Dimens {
     this.smallest = 2,
   });
 
-  const SizeDimens.spacing({
+  const SizeDimen.space({
     this.normal = 12,
     this.medium = 16,
     this.large = 24,
@@ -125,7 +156,7 @@ class SizeDimens extends Dimens {
     this.smallest = 2,
   });
 
-  const SizeDimens.stroke({
+  const SizeDimen.stroke({
     this.normal = 1,
     this.medium = 1.5,
     this.large = 2,
@@ -137,17 +168,17 @@ class SizeDimens extends Dimens {
   });
 
   @override
-  SizeDimens copy({
-    SizeDimen? normal,
-    SizeDimen? medium,
-    SizeDimen? large,
-    SizeDimen? larger,
-    SizeDimen? largest,
-    SizeDimen? small,
-    SizeDimen? smaller,
-    SizeDimen? smallest,
+  SizeDimen copy({
+    SizeDimenData? normal,
+    SizeDimenData? medium,
+    SizeDimenData? large,
+    SizeDimenData? larger,
+    SizeDimenData? largest,
+    SizeDimenData? small,
+    SizeDimenData? smaller,
+    SizeDimenData? smallest,
   }) {
-    return SizeDimens(
+    return SizeDimen(
       normal: normal ?? this.normal,
       medium: medium ?? this.medium,
       large: large ?? this.large,
@@ -160,10 +191,10 @@ class SizeDimens extends Dimens {
   }
 
   @override
-  SizeDimens scale(double scaleFactor) => this * SizeDimens.all(scaleFactor);
+  SizeDimen scale(double scaleFactor) => this * SizeDimen.all(scaleFactor);
 
-  SizeDimens operator +(SizeDimens other) {
-    return SizeDimens(
+  SizeDimen operator +(SizeDimen other) {
+    return SizeDimen(
       normal: normal + other.normal,
       medium: medium + other.medium,
       large: large + other.large,
@@ -175,8 +206,8 @@ class SizeDimens extends Dimens {
     );
   }
 
-  SizeDimens operator -(SizeDimens other) {
-    return SizeDimens(
+  SizeDimen operator -(SizeDimen other) {
+    return SizeDimen(
       normal: normal - other.normal,
       medium: medium - other.medium,
       large: large - other.large,
@@ -188,8 +219,8 @@ class SizeDimens extends Dimens {
     );
   }
 
-  SizeDimens operator *(SizeDimens other) {
-    return SizeDimens(
+  SizeDimen operator *(SizeDimen other) {
+    return SizeDimen(
       normal: normal * other.normal,
       medium: medium * other.medium,
       large: large * other.large,
@@ -201,8 +232,8 @@ class SizeDimens extends Dimens {
     );
   }
 
-  SizeDimens operator %(SizeDimens other) {
-    return SizeDimens(
+  SizeDimen operator %(SizeDimen other) {
+    return SizeDimen(
       normal: normal % other.normal,
       medium: medium % other.medium,
       large: large % other.large,
@@ -214,8 +245,8 @@ class SizeDimens extends Dimens {
     );
   }
 
-  SizeDimens operator /(SizeDimens other) {
-    return SizeDimens(
+  SizeDimen operator /(SizeDimen other) {
+    return SizeDimen(
       normal: normal / other.normal,
       medium: medium / other.medium,
       large: large / other.large,
@@ -229,7 +260,7 @@ class SizeDimens extends Dimens {
 
   @override
   bool operator ==(Object other) {
-    return other is SizeDimens &&
+    return other is SizeDimen &&
         normal == other.normal &&
         medium == other.medium &&
         large == other.large &&

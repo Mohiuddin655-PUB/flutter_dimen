@@ -1,6 +1,6 @@
-import 'dimens.dart';
+import 'dimen.dart';
 
-class ConstraintDimen {
+class ConstraintDimenData {
   final double? width;
   final double? height;
   final double? maxWidth;
@@ -8,7 +8,7 @@ class ConstraintDimen {
   final double? minWidth;
   final double? minHeight;
 
-  const ConstraintDimen({
+  const ConstraintDimenData({
     this.width,
     this.height,
     this.maxWidth,
@@ -17,7 +17,7 @@ class ConstraintDimen {
     this.minHeight,
   });
 
-  ConstraintDimen copy({
+  ConstraintDimenData copy({
     double? width,
     double? height,
     double? maxWidth,
@@ -25,7 +25,7 @@ class ConstraintDimen {
     double? minWidth,
     double? minHeight,
   }) {
-    return ConstraintDimen(
+    return ConstraintDimenData(
       width: width ?? this.width,
       height: height ?? this.height,
       maxWidth: maxWidth ?? this.maxWidth,
@@ -35,7 +35,7 @@ class ConstraintDimen {
     );
   }
 
-  ConstraintDimen defaults({
+  ConstraintDimenData defaults({
     double? width,
     double? height,
     double? maxWidth,
@@ -45,7 +45,7 @@ class ConstraintDimen {
     double? smaller,
     double? smallest,
   }) {
-    return ConstraintDimen(
+    return ConstraintDimenData(
       width: this.width ?? width,
       height: this.height ?? height,
       maxWidth: this.maxWidth ?? maxWidth,
@@ -55,8 +55,8 @@ class ConstraintDimen {
     );
   }
 
-  ConstraintDimen scale(double scaleFactor) {
-    return ConstraintDimen(
+  ConstraintDimenData scale(double scaleFactor) {
+    return ConstraintDimenData(
       width: width * scaleFactor,
       height: height * scaleFactor,
       maxWidth: maxWidth * scaleFactor,
@@ -66,8 +66,8 @@ class ConstraintDimen {
     );
   }
 
-  ConstraintDimen operator +(ConstraintDimen other) {
-    return ConstraintDimen(
+  ConstraintDimenData operator +(ConstraintDimenData other) {
+    return ConstraintDimenData(
       width: width + other.width,
       height: height + other.height,
       maxWidth: maxWidth + other.maxWidth,
@@ -77,8 +77,8 @@ class ConstraintDimen {
     );
   }
 
-  ConstraintDimen operator -(ConstraintDimen other) {
-    return ConstraintDimen(
+  ConstraintDimenData operator -(ConstraintDimenData other) {
+    return ConstraintDimenData(
       width: width - other.width,
       height: height - other.height,
       maxWidth: maxWidth - other.maxWidth,
@@ -88,8 +88,8 @@ class ConstraintDimen {
     );
   }
 
-  ConstraintDimen operator *(ConstraintDimen other) {
-    return ConstraintDimen(
+  ConstraintDimenData operator *(ConstraintDimenData other) {
+    return ConstraintDimenData(
       width: width * other.width,
       height: height * other.height,
       maxWidth: maxWidth * other.maxWidth,
@@ -99,8 +99,8 @@ class ConstraintDimen {
     );
   }
 
-  ConstraintDimen operator %(ConstraintDimen other) {
-    return ConstraintDimen(
+  ConstraintDimenData operator %(ConstraintDimenData other) {
+    return ConstraintDimenData(
       width: width % other.width,
       height: height % other.height,
       maxWidth: maxWidth % other.maxWidth,
@@ -110,8 +110,8 @@ class ConstraintDimen {
     );
   }
 
-  ConstraintDimen operator /(ConstraintDimen other) {
-    return ConstraintDimen(
+  ConstraintDimenData operator /(ConstraintDimenData other) {
+    return ConstraintDimenData(
       width: width / other.width,
       height: height / other.height,
       maxWidth: maxWidth / other.maxWidth,
@@ -123,7 +123,7 @@ class ConstraintDimen {
 
   @override
   bool operator ==(Object other) {
-    return other is ConstraintDimen &&
+    return other is ConstraintDimenData &&
         width == other.width &&
         height == other.height &&
         maxWidth == other.maxWidth &&
@@ -134,7 +134,7 @@ class ConstraintDimen {
 
   @override
   String toString() {
-    return 'Constraint(width: $width, height: $height, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight';
+    return '$ConstraintDimenData(width: $width, height: $height, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight';
   }
 
   @override
@@ -143,25 +143,25 @@ class ConstraintDimen {
   }
 }
 
-class ConstraintDimens extends Dimens {
-  final ConstraintDimen? normal;
-  final ConstraintDimen? medium;
-  final ConstraintDimen? large;
-  final ConstraintDimen? larger;
-  final ConstraintDimen? largest;
-  final ConstraintDimen? small;
-  final ConstraintDimen? smaller;
-  final ConstraintDimen? smallest;
+class ConstraintDimen extends Dimen {
+  final ConstraintDimenData? normal;
+  final ConstraintDimenData? medium;
+  final ConstraintDimenData? large;
+  final ConstraintDimenData? larger;
+  final ConstraintDimenData? largest;
+  final ConstraintDimenData? small;
+  final ConstraintDimenData? smaller;
+  final ConstraintDimenData? smallest;
 
-  const ConstraintDimens({
+  const ConstraintDimen({
     this.normal,
-    ConstraintDimen? medium,
-    ConstraintDimen? large,
-    ConstraintDimen? larger,
-    ConstraintDimen? largest,
-    ConstraintDimen? small,
-    ConstraintDimen? smaller,
-    ConstraintDimen? smallest,
+    ConstraintDimenData? medium,
+    ConstraintDimenData? large,
+    ConstraintDimenData? larger,
+    ConstraintDimenData? largest,
+    ConstraintDimenData? small,
+    ConstraintDimenData? smaller,
+    ConstraintDimenData? smallest,
   })  : medium = medium ?? normal,
         large = large ?? medium ?? normal,
         larger = larger ?? large ?? medium ?? normal,
@@ -170,9 +170,9 @@ class ConstraintDimens extends Dimens {
         smaller = smaller ?? small ?? normal,
         smallest = smallest ?? smaller ?? small ?? normal;
 
-  const ConstraintDimens.none() : this(normal: const ConstraintDimen());
+  const ConstraintDimen.none() : this(normal: const ConstraintDimenData());
 
-  ConstraintDimens.all({
+  ConstraintDimen.all({
     double? width,
     double? height,
     double? maxWidth,
@@ -180,7 +180,7 @@ class ConstraintDimens extends Dimens {
     double? minWidth,
     double? minHeight,
   }) : this(
-          normal: ConstraintDimen(
+          normal: ConstraintDimenData(
             width: width,
             height: height,
             maxWidth: maxWidth,
@@ -191,17 +191,17 @@ class ConstraintDimens extends Dimens {
         );
 
   @override
-  ConstraintDimens copy({
-    ConstraintDimen? normal,
-    ConstraintDimen? medium,
-    ConstraintDimen? large,
-    ConstraintDimen? larger,
-    ConstraintDimen? largest,
-    ConstraintDimen? small,
-    ConstraintDimen? smaller,
-    ConstraintDimen? smallest,
+  ConstraintDimen copy({
+    ConstraintDimenData? normal,
+    ConstraintDimenData? medium,
+    ConstraintDimenData? large,
+    ConstraintDimenData? larger,
+    ConstraintDimenData? largest,
+    ConstraintDimenData? small,
+    ConstraintDimenData? smaller,
+    ConstraintDimenData? smallest,
   }) {
-    return ConstraintDimens(
+    return ConstraintDimen(
       normal: normal ?? this.normal,
       medium: medium ?? this.medium,
       large: large ?? this.large,
@@ -213,17 +213,17 @@ class ConstraintDimens extends Dimens {
     );
   }
 
-  ConstraintDimens defaults(
-    ConstraintDimen? normal, {
-    ConstraintDimen? medium,
-    ConstraintDimen? large,
-    ConstraintDimen? larger,
-    ConstraintDimen? largest,
-    ConstraintDimen? small,
-    ConstraintDimen? smaller,
-    ConstraintDimen? smallest,
+  ConstraintDimen defaults(
+    ConstraintDimenData? normal, {
+    ConstraintDimenData? medium,
+    ConstraintDimenData? large,
+    ConstraintDimenData? larger,
+    ConstraintDimenData? largest,
+    ConstraintDimenData? small,
+    ConstraintDimenData? smaller,
+    ConstraintDimenData? smallest,
   }) {
-    return ConstraintDimens(
+    return ConstraintDimen(
       normal: this.normal ?? normal,
       medium: this.medium ?? medium,
       large: this.large ?? large,
@@ -236,8 +236,8 @@ class ConstraintDimens extends Dimens {
   }
 
   @override
-  ConstraintDimens scale(double scaleFactor) {
-    return ConstraintDimens(
+  ConstraintDimen scale(double scaleFactor) {
+    return ConstraintDimen(
       normal: normal?.scale(scaleFactor),
       medium: medium?.scale(scaleFactor),
       large: large?.scale(scaleFactor),
@@ -249,8 +249,8 @@ class ConstraintDimens extends Dimens {
     );
   }
 
-  ConstraintDimens operator +(ConstraintDimens other) {
-    return ConstraintDimens(
+  ConstraintDimen operator +(ConstraintDimen other) {
+    return ConstraintDimen(
       normal: normal + other.normal,
       medium: medium + other.medium,
       large: large + other.large,
@@ -262,8 +262,8 @@ class ConstraintDimens extends Dimens {
     );
   }
 
-  ConstraintDimens operator -(ConstraintDimens other) {
-    return ConstraintDimens(
+  ConstraintDimen operator -(ConstraintDimen other) {
+    return ConstraintDimen(
       normal: normal - other.normal,
       medium: medium - other.medium,
       large: large - other.large,
@@ -275,8 +275,8 @@ class ConstraintDimens extends Dimens {
     );
   }
 
-  ConstraintDimens operator *(ConstraintDimens other) {
-    return ConstraintDimens(
+  ConstraintDimen operator *(ConstraintDimen other) {
+    return ConstraintDimen(
       normal: normal * other.normal,
       medium: medium * other.medium,
       large: large * other.large,
@@ -288,8 +288,8 @@ class ConstraintDimens extends Dimens {
     );
   }
 
-  ConstraintDimens operator %(ConstraintDimens other) {
-    return ConstraintDimens(
+  ConstraintDimen operator %(ConstraintDimen other) {
+    return ConstraintDimen(
       normal: normal % other.normal,
       medium: medium % other.medium,
       large: large % other.large,
@@ -301,8 +301,8 @@ class ConstraintDimens extends Dimens {
     );
   }
 
-  ConstraintDimens operator /(ConstraintDimens other) {
-    return ConstraintDimens(
+  ConstraintDimen operator /(ConstraintDimen other) {
+    return ConstraintDimen(
       normal: normal / other.normal,
       medium: medium / other.medium,
       large: large / other.large,
@@ -316,7 +316,7 @@ class ConstraintDimens extends Dimens {
 
   @override
   bool operator ==(Object other) {
-    return other is ConstraintDimens &&
+    return other is ConstraintDimen &&
         normal == other.normal &&
         medium == other.medium &&
         large == other.large &&
@@ -329,7 +329,7 @@ class ConstraintDimens extends Dimens {
 
   @override
   String toString() {
-    return 'Constraints(normal: $normal, medium: $medium, large: $large, larger: $larger, largest: $largest, small: $small, smaller: $smaller, smallest: $smallest';
+    return '$ConstraintDimen(normal: $normal, medium: $medium, large: $large, larger: $larger, largest: $largest, small: $small, smaller: $smaller, smallest: $smallest';
   }
 
   @override
@@ -361,28 +361,28 @@ extension on double? {
   double? operator /(double? other) => other != null ? _use / other : this;
 }
 
-extension on ConstraintDimen? {
-  ConstraintDimen? operator +(ConstraintDimen? other) {
+extension on ConstraintDimenData? {
+  ConstraintDimenData? operator +(ConstraintDimenData? other) {
     return other != null ? use + other : this;
   }
 
-  ConstraintDimen? operator -(ConstraintDimen? other) {
+  ConstraintDimenData? operator -(ConstraintDimenData? other) {
     return other != null ? use - other : this;
   }
 
-  ConstraintDimen? operator *(ConstraintDimen? other) {
+  ConstraintDimenData? operator *(ConstraintDimenData? other) {
     return other != null ? use * other : this;
   }
 
-  ConstraintDimen? operator %(ConstraintDimen? other) {
+  ConstraintDimenData? operator %(ConstraintDimenData? other) {
     return other != null ? use % other : this;
   }
 
-  ConstraintDimen? operator /(ConstraintDimen? other) {
+  ConstraintDimenData? operator /(ConstraintDimenData? other) {
     return other != null ? use / other : this;
   }
 }
 
-extension ConstraintDimenHelper on ConstraintDimen? {
-  ConstraintDimen get use => this ?? const ConstraintDimen();
+extension ConstraintDimenDataHelper on ConstraintDimenData? {
+  ConstraintDimenData get use => this ?? const ConstraintDimenData();
 }
