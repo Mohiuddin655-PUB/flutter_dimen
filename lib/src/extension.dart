@@ -472,3 +472,333 @@ extension DimenHelper on BuildContext {
 
   double get smallestSize => sizes.smallest;
 }
+
+extension DimenExtension<T extends double?> on T {
+  T sp(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == 0) return this;
+    return dimen.dp(this!) as T;
+  }
+
+  T dp(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == 0) return this;
+    return dimen.dp(this!) as T;
+  }
+
+  T dx(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == 0) return this;
+    return dimen.dx(this!) as T;
+  }
+
+  T dy(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == 0) return this;
+    return dimen.dy(this!) as T;
+  }
+
+  T dw(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == 0) return this;
+    return (dimen.height * this!) as T;
+  }
+
+  T dh(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == 0) return this;
+    return (dimen.width * this!) as T;
+  }
+
+  T spOf(BuildContext context) => sp(context.dimens);
+
+  T dpOf(BuildContext context) => dp(context.dimens);
+
+  T dxOf(BuildContext context) => dx(context.dimens);
+
+  T dyOf(BuildContext context) => dy(context.dimens);
+
+  T dwOf(BuildContext context) => dw(context.dimens);
+
+  T dhOf(BuildContext context) => dh(context.dimens);
+}
+
+extension DimenEdgeInsets on EdgeInsets {
+  EdgeInsets apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == EdgeInsets.zero) return this;
+    return copyWith(
+      left: dimen.dx(left),
+      right: dimen.dx(right),
+      top: dimen.dy(top),
+      bottom: dimen.dy(bottom),
+    );
+  }
+
+  EdgeInsets dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenEdgeInsetsOrNull on EdgeInsets? {
+  EdgeInsets? apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == EdgeInsets.zero) return this;
+    return this!.apply(dimen);
+  }
+
+  EdgeInsets? dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenOffset on Offset {
+  Offset apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == Offset.zero) return this;
+    return Offset(dimen.dx(dx), dimen.dy(dy));
+  }
+
+  Offset dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenOffsetOrNull on Offset? {
+  Offset? apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == Offset.zero) return this;
+    return this!.apply(dimen);
+  }
+
+  Offset? dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenSize on Size {
+  Size apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == Size.zero) return this;
+    return Size(dimen.dx(width), dimen.dy(height));
+  }
+
+  Size dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenSizeOrNull on Size? {
+  Size? apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == Size.zero) return this;
+    return this!.apply(dimen);
+  }
+
+  Size? dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenBoxConstraits on BoxConstraints {
+  BoxConstraints apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    return copyWith(
+      maxHeight: maxHeight.dy(dimen),
+      maxWidth: maxWidth.dx(dimen),
+      minHeight: minHeight.dy(dimen),
+      minWidth: minWidth.dx(dimen),
+    );
+  }
+
+  BoxConstraints dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenBoxConstraitsOrNull on BoxConstraints? {
+  BoxConstraints? apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null) return this;
+    return this!.apply(dimen);
+  }
+
+  BoxConstraints? dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenRadius on Radius {
+  Radius apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == Radius.zero) return this;
+    return Radius.elliptical(dimen.dp(x), dimen.dy(y));
+  }
+
+  Radius dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenRadiusOrNull on Radius? {
+  Radius? apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == Radius.zero) return this;
+    return this!.apply(dimen);
+  }
+
+  Radius? dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenBorderRadius on BorderRadius {
+  BorderRadius apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == BorderRadius.zero) return this;
+    return copyWith(
+      topLeft: topLeft.apply(dimen),
+      topRight: topRight.apply(dimen),
+      bottomLeft: bottomLeft.apply(dimen),
+      bottomRight: bottomRight.apply(dimen),
+    );
+  }
+
+  BorderRadius dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenBorderRadiusOrNull on BorderRadius? {
+  BorderRadius? apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this == BorderRadius.zero) return this;
+    return this!.apply(dimen);
+  }
+
+  BorderRadius? dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenSizedBox on SizedBox {
+  SizedBox apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    final w = width ?? 0;
+    final h = height ?? 0;
+    if (w + h < 0) return SizedBox.shrink();
+    return SizedBox(
+      key: key,
+      width: w > 0 ? dimen.dx(w) : null,
+      height: h > 0 ? dimen.dy(h) : null,
+    );
+  }
+
+  SizedBox dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenSizedBoxOrNull on SizedBox? {
+  SizedBox? apply(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null) return this;
+    return this!.apply(dimen);
+  }
+
+  SizedBox? dimen(BuildContext context) => apply(context.dimens);
+}
+
+extension DimenBorderSide on BorderSide {
+  BorderSide applyDimen(DimenData? dimen) {
+    if (dimen == null) return this;
+    return copyWith(width: dimen.dp(width));
+  }
+
+  BorderSide dimenOf(BuildContext context) => applyDimen(context.dimens);
+}
+
+extension DimenBorderSideOrNull on BorderSide? {
+  BorderSide? applyDimen(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null) return this;
+    return this!.applyDimen(dimen);
+  }
+
+  BorderSide? dimenOf(BuildContext context) => applyDimen(context.dimens);
+}
+
+extension DimenBoxShadow on BoxShadow {
+  BoxShadow applyDimen(DimenData? dimen) {
+    if (dimen == null) return this;
+    return copyWith(
+      offset: offset.apply(dimen),
+      blurRadius: blurRadius.dp(dimen),
+      spreadRadius: spreadRadius.dp(dimen),
+    );
+  }
+
+  BoxShadow dimenOf(BuildContext context) => applyDimen(context.dimens);
+}
+
+extension DimenBoxShadowOrNull on BoxShadow? {
+  BoxShadow? applyDimen(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null) return this;
+    return this!.applyDimen(dimen);
+  }
+
+  BoxShadow? dimenOf(BuildContext context) => applyDimen(context.dimens);
+}
+
+extension DimenBoxShadows on List<BoxShadow> {
+  List<BoxShadow> applyDimen(DimenData? dimen) {
+    if (dimen == null || isEmpty) return this;
+    return map((e) => e.applyDimen(dimen)).toList();
+  }
+
+  List<BoxShadow> dimenOf(BuildContext context) => applyDimen(context.dimens);
+}
+
+extension DimenBoxShadowsOrNull on List<BoxShadow>? {
+  List<BoxShadow>? applyDimen(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null || this!.isEmpty) return this;
+    return this!.applyDimen(dimen);
+  }
+
+  List<BoxShadow>? dimenOf(BuildContext context) => applyDimen(context.dimens);
+}
+
+extension DimenBoxDecoration on BoxDecoration {
+  BoxDecoration applyDimen(DimenData? dimen) {
+    if (dimen == null) return this;
+    BoxBorder? border = this.border;
+    if (border is Border) {
+      border = Border(
+        top: border.top.applyDimen(dimen),
+        bottom: border.bottom.applyDimen(dimen),
+        left: border.left.applyDimen(dimen),
+        right: border.right.applyDimen(dimen),
+      );
+    } else if (border is BorderDirectional) {
+      border = BorderDirectional(
+        top: border.top.applyDimen(dimen),
+        bottom: border.bottom.applyDimen(dimen),
+        start: border.start.applyDimen(dimen),
+        end: border.end.applyDimen(dimen),
+      );
+    }
+    final br = borderRadius;
+    return copyWith(
+      border: border,
+      borderRadius: br is BorderRadius ? br.apply(dimen) : br,
+      boxShadow: boxShadow.applyDimen(dimen),
+    );
+  }
+
+  BoxDecoration dimenOf(BuildContext context) => applyDimen(context.dimens);
+}
+
+extension DimenBoxDecorationOrNull on BoxDecoration? {
+  BoxDecoration? applyDimen(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null) return this;
+    return this!.applyDimen(dimen);
+  }
+
+  BoxDecoration? dimenOf(BuildContext context) => applyDimen(context.dimens);
+}
+
+extension DimenTextStyle on TextStyle {
+  TextStyle applyDimen(DimenData? dimen) {
+    if (dimen == null) return this;
+    return copyWith(fontSize: fontSize.sp(dimen));
+  }
+
+  TextStyle dimenOf(BuildContext context) => applyDimen(context.dimens);
+}
+
+extension DimenTextStyleOrNull on TextStyle? {
+  TextStyle? applyDimen(DimenData? dimen) {
+    if (dimen == null) return this;
+    if (this == null) return this;
+    return this!.applyDimen(dimen);
+  }
+
+  TextStyle? dimenOf(BuildContext context) => applyDimen(context.dimens);
+}

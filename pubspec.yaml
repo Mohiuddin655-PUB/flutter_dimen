@@ -1,6 +1,6 @@
 name: app_dimen
 description: Collection of color with advanced controlling system.
-version: 1.0.9
+version: 1.0.10
 repository: https://github.com/Mohiuddin655-PUB/flutter_dimen.git
 
 environment:
@@ -15,7 +15,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
 

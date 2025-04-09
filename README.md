@@ -17,12 +17,13 @@ class AssumingSizeExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dimen = context.dimens;
     return Scaffold(
       body: Center(
         child: Container(
-          width: context.dp(200),
+          width: 200.0.dp(dimen),
           height: context.dp(200),
-          padding: EdgeInsets.all(context.dp(24)),
+          padding: EdgeInsets.all(context.dp(24)).apply(dimen),
           decoration: BoxDecoration(
             color: Colors.deepOrange,
             borderRadius: BorderRadius.circular(context.dp(24)),
