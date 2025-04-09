@@ -667,6 +667,7 @@ extension DimenSizedBox on SizedBox {
       key: key,
       width: w > 0 ? dimen.dx(w) : null,
       height: h > 0 ? dimen.dy(h) : null,
+      child: child,
     );
   }
 
